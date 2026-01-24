@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import "../components/common/LeadDetails.css";
 import initialFakeLeads from "/leads.json";
+import ActivitySuggestions from "../components/common/ActivitySuggestions";
 
 const PIPELINE_STEPS = [
   "New",
@@ -131,9 +132,8 @@ export default function LeadDetails() {
   };
 
   const formatTimestamp = (isoString) => {
-   
     const date = new Date(isoString);
-    if (isNaN(date.getTime())) return isoString; 
+    if (isNaN(date.getTime())) return isoString;
 
     return new Intl.DateTimeFormat("en-US", {
       month: "short",
@@ -199,7 +199,7 @@ export default function LeadDetails() {
         </header>
 
         {/* DETAILS CARD */}
-        <div className="details-card">
+        <div className="details-card" >
           {/* Identity Section */}
           <div className="card-top-section">
             <div className="identity-wrapper">
@@ -439,6 +439,9 @@ export default function LeadDetails() {
                   rows={2}
                   onKeyDown={handleKeyDown}
                 />
+
+                <ActivitySuggestions lead={lead} onSelect={(text) => setNewComment(text)} />
+
                 <div className="comment-actions">
                   <span className="hint-text">
                     <strong>Enter</strong> to post
