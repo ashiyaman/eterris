@@ -24,6 +24,30 @@
     "updatedAt": "2026-01-22T10:30:00Z"
   },
   {
+    "_id": "65af8b2c1d4e5f0012345671",
+    "leadName": "Acme Corp International Holdings",
+    "leadSource": "Website",
+    "leadStatus": "New",
+    "priority": "High",
+    "timeToClose": 14,
+    "agent": {
+      "agentId": "SDR-9921",
+      "agentName": "Marcus Sterling"
+    },
+    "tags": ["High Value", "VIP"],
+    "comments": [
+      {
+        "_id": "65af9c112d3a",
+        "author": "Marcus Sterling",
+        "text": "Initial inquiry received via enterprise contact form.",
+        "timestamp": "2026-01-22T10:30:00Z",
+        "isSystem": false
+      }
+    ],
+    "createdAt": "2026-01-22T10:00:00Z",
+    "updatedAt": "2026-01-22T10:30:00Z"
+  },
+  {
     "_id": "65af8b2c1d4e5f0012345672",
     "leadName": "John Enterprises",
     "leadSource": "Referral",
@@ -53,6 +77,30 @@
     ],
     "createdAt": "2026-01-21T08:00:00Z",
     "updatedAt": "2026-01-23T09:45:00Z"
+  },
+  {
+    "_id": "65af8b2c1d4e5f0012345673",
+    "leadName": "Pink Hut Pvt Ltd",
+    "leadSource": "Cold Call",
+    "leadStatus": "Qualified",
+    "priority": "Low",
+    "timeToClose": 25,
+    "agent": {
+      "agentId": "EXEC-2105",
+      "agentName": "Sarah Jenkins"
+    },
+    "tags": ["High Value", "Tech"],
+    "comments": [
+      {
+        "_id": "65af9c112d3d",
+        "author": "David Chen",
+        "text": "Confirmed they have the budget and authority to purchase.",
+        "timestamp": "2026-01-20T11:20:00Z",
+        "isSystem": false
+      }
+    ],
+    "createdAt": "2026-01-15T14:00:00Z",
+    "updatedAt": "2026-01-20T11:20:00Z"
   },
   {
     "_id": "65af8b2c1d4e5f0012345673",

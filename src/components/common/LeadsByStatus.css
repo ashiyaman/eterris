@@ -1,0 +1,213 @@
+/* ============================= */
+/* 1. LAYOUT & CONTAINER */
+/* ============================= */
+.lbs-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%; /* Fills the parent height */
+  min-height: 0;
+  background-color: #ffffff;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.lbs-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  background: white;
+}
+
+/* ============================= */
+/* 2. RESPONSIVE BOARD LAYOUT */
+/* ============================= */
+.lbs-board-wrapper {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  overflow-x: auto; /* Horizontal scroll only if columns get too squeezed */
+  overflow-y: hidden;
+  background: #f8fafc;
+}
+
+.lbs-board {
+  display: flex;
+  height: 100%;
+  /* Key change: ensure board takes full width but allows content to stretch */
+  min-width: 100%; 
+  width: max-content; /* Allows grid to grow beyond screen if needed */
+}
+
+/* On larger screens, force it to fit 100% so columns expand */
+@media (min-width: 1400px) {
+  .lbs-board {
+    width: 100%;
+  }
+}
+
+/* ============================= */
+/* 3. FLUID COLUMNS */
+/* ============================= */
+.lbs-column {
+  /* FLEX MAGIC: grow=1 (expand), shrink=1 (shrink), basis=220px (target size) */
+  flex: 1 1 220px; 
+  /* Don't let it shrink smaller than 220px (prevents breaking text) */
+  min-width: 220px; 
+  /* Optional: Max width so they don't look weird on ultra-wide screens */
+  max-width: 500px;
+  
+  border-right: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f8fafc;
+  transition: min-width 0.2s; /* Smooth resize */
+}
+
+.lbs-col-header {
+  background: #ffffff;
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+  border-top: 3px solid transparent;
+  flex-shrink: 0;
+  white-space: nowrap; /* Keep header on one line */
+}
+
+/* Header Colors */
+.status-new-border { border-top-color: #3b82f6; }
+.status-contacted-border { border-top-color: #f97316; }
+.status-qualified-border { border-top-color: #16a34a; }
+.status-proposalsent-border { border-top-color: #7c3aed; }
+.status-closed-border { border-top-color: #6b7280; }
+
+.lbs-col-title-row { display: flex; justify-content: space-between; align-items: center; }
+.lbs-title-group { display: flex; align-items: center; gap: 8px; overflow: hidden; }
+.lbs-title-group h3 { 
+  font-size: 13px; font-weight: 600; color: #1f2937; margin: 0; 
+  overflow: hidden; text-overflow: ellipsis; /* Handle truncated text */
+}
+
+.lbs-count { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 11px; color: #6b7280; font-weight: 600; }
+
+.status-icon-bg {
+  width: 20px; height: 20px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+/* Icon Colors */
+.status-new-bg { background: #eff6ff; color: #3b82f6; }
+.status-contacted-bg { background: #fff7ed; color: #ea580c; }
+.status-qualified-bg { background: #f0fdf4; color: #16a34a; }
+.status-proposalsent-bg { background: #f5f3ff; color: #7c3aed; }
+.status-closed-bg { background: #f3f4f6; color: #4b5563; }
+
+/* Filter Controls */
+.lbs-filter-toggle { background: transparent; border: none; cursor: pointer; color: #9ca3af; padding: 4px; border-radius: 4px; }
+.lbs-filter-toggle:hover { background: #f3f4f6; color: #4b5563; }
+.lbs-filter-toggle.active { background: #eef2ff; color: #4f46e5; }
+
+/* Filter Drawer */
+.lbs-col-filters {
+  max-height: 0; overflow: hidden; opacity: 0; transition: all 0.2s ease;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.lbs-col-filters.open {
+  max-height: 100px; opacity: 1; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #e5e7eb;
+}
+.lbs-col-filters select { width: 100%; padding: 4px 6px; font-size: 11px; border: 1px solid #d1d5db; border-radius: 4px; background: white; }
+.lbs-filter-row-2 { display: flex; gap: 6px; }
+.lbs-sort-btn { flex: 1; display: flex; align-items: center; justify-content: center; gap: 4px; background: white; border: 1px solid #d1d5db; border-radius: 4px; font-size: 10px; cursor: pointer; color: #374151; }
+
+/* ============================= */
+/* 4. SCROLLABLE LIST AREA */
+/* ============================= */
+.lbs-col-list-container {
+  flex: 1; 
+  min-height: 0;
+  position: relative;
+}
+
+.lbs-col-list-scroll {
+  position: absolute; 
+  top: 0; bottom: 0; left: 0; right: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+/* Custom Scrollbar for list */
+.lbs-col-list-scroll::-webkit-scrollbar { width: 4px; }
+.lbs-col-list-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+
+/* ============================= */
+/* 5. TILE DESIGN */
+/* ============================= */
+.lbs-tile {
+  display: flex; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 6px;
+  text-decoration: none; overflow: hidden; transition: all 0.15s; position: relative;
+  flex-shrink: 0; /* Prevent tile from crushing */
+}
+.lbs-tile:hover { border-color: #cbd5e1; transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+
+.lbs-tile-stripe { width: 4px; flex-shrink: 0; }
+.lbs-tile-stripe.high { background: #ef4444; }
+.lbs-tile-stripe.medium { background: #f59e0b; }
+.lbs-tile-stripe.low { background: #10b981; }
+
+.lbs-tile-content { 
+  flex: 1; padding: 8px 10px; display: flex; flex-direction: column; gap: 4px; 
+  min-width: 0; /* Important for text truncation */
+}
+
+.lbs-tile-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.lbs-lead-name { 
+  font-size: 13px; font-weight: 500; color: #1f2937; line-height: 1.2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* Truncate name if too long */
+}
+.urgent-dot { width: 6px; height: 6px; background: #ef4444; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+
+.lbs-tile-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 2px; }
+.lbs-meta-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #6b7280; white-space: nowrap; }
+
+.lbs-empty { text-align: center; font-size: 11px; color: #9ca3af; padding: 20px 0; font-style: italic; }
+
+/* ============================= */
+/* 6. HEADER ELEMENTS */
+/* ============================= */
+.lbs-header-left { display: flex; align-items: center; gap: 16px; }
+.lbs-back-link { color: #6b7280; padding: 8px; border-radius: 8px; display: flex; transition: 0.2s; }
+.lbs-back-link:hover { background: #f3f4f6; color: #111827; }
+.lbs-header h2 { font-size: 18px; font-weight: 700; color: #111827; margin: 0; }
+.lbs-subtitle { font-size: 12px; color: #6b7280; margin: 0; }
+.lbs-header-right { display: flex; gap: 12px; align-items: center; }
+
+.lbs-search-box { position: relative; width: 220px; }
+.lbs-search-box input {
+  width: 100%; padding: 8px 30px 8px 32px; border: 1px solid #e5e7eb;
+  border-radius: 6px; font-size: 13px; background: #f9fafb; transition: all 0.2s;
+}
+.lbs-search-box input:focus { background: white; border-color: #6366f1; outline: none; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);; }
+.lbs-search-box .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #9ca3af; }
+.lbs-search-box .clear-icon { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #9ca3af; cursor: pointer; }
+
+/* ============================= */
+/* 7. MOBILE RESPONSIVE */
+/* ============================= */
+@media (max-width: 768px) {
+  .lbs-wrapper { height: auto; overflow: visible; }
+  .lbs-board-wrapper { overflow-x: hidden; }
+  .lbs-board { flex-direction: column; height: auto; width: 100%; }
+  .lbs-column { 
+    width: 100%; min-width: 100%; max-width: none; 
+    height: auto; border-right: none; border-bottom: 8px solid #f3f4f6; 
+  }
+  .lbs-col-list-container { height: auto; min-height: 0; }
+  .lbs-col-list-scroll { position: relative; overflow-y: visible; max-height: 400px; overflow-y: auto; }
+  .lbs-header { flex-direction: column; gap: 12px; align-items: stretch; }
+  .lbs-header-right { justify-content: space-between; }
+  .lbs-search-box { width: 100%; }
+}
